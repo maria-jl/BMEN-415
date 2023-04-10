@@ -26,16 +26,24 @@ linreg.fit(X_train_new, y_train)
 X_test_new = selector.transform(X_test)
 
 # Make predictions on the testing data and evaluate the performance of the model
-y_pred = linreg.predict(X_test_new)
+y_pred_test = linreg.predict(X_test_new)
+y_pred_train =linreg.predict(X_train_new)
 
-mse = mean_squared_error(y_test, y_pred)
-r2 = r2_score(y_test, y_pred)
+# Evaluate the model's performance on the testing data
+mse_test = mean_squared_error(y_test, y_pred_test)
+r2_test = r2_score(y_test, y_pred_test)
+mse_train = mean_squared_error(y_train, y_pred_train)
+r2_train = r2_score(y_train, y_pred_train)
 
-print('Mean squared error:', mse)
-print('R-squared:', r2)
+
+# Print the performance metrics
+print('Train Mean squared error:', mse_train)
+print('Train R-Squared:', r2_train)
+print('Test Mean squared error:', mse_test)
+print('Test R-Squared:', r2_test)
 
 # Plot the predicted values against the actual values
-plt.scatter(y_test, y_pred)
+plt.scatter(y_test, y_pred_test)
 plt.xlabel('Actual')
 plt.ylabel('Predicted')
 plt.title('Linear Regression Scatter Plot')
