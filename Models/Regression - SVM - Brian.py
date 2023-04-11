@@ -24,16 +24,24 @@ svr = SVR(kernel='poly', degree=2)
 svr.fit(X_train_scaled, y_train)
 
 # Predict on the test set and calculate the mean squared error
-y_pred = svr.predict(X_test_scaled)
+y_pred_test = svr.predict(X_test_scaled)
+y_pred_train = svr.predict(X_train_scaled)
 
-mse = mean_squared_error(y_test, y_pred)
-r2 = r2_score(y_test, y_pred)
+# Evaluate the model's performance on the testing data
+mse_test = mean_squared_error(y_test, y_pred_test)
+r2_test = r2_score(y_test, y_pred_test)
+mse_train = mean_squared_error(y_train, y_pred_train)
+r2_train = r2_score(y_train, y_pred_train)
 
-print('Mean squared error:', mse)
-print('R-squared:', r2)
+
+# Print the performance metrics
+print('Train Mean squared error:', mse_train)
+print('Train R-Squared:', r2_train)
+print('Test Mean squared error:', mse_test)
+print('Test R-Squared:', r2_test)
 
 # Plot the predicted values against the actual values
-plt.scatter(y_test, y_pred)
+plt.scatter(y_test, y_pred_test)
 plt.xlabel('Actual')
 plt.ylabel('Predicted')
 plt.title('SVM Scatter Plot')
